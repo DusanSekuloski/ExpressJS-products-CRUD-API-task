@@ -1,10 +1,10 @@
-const {Pool} = require('pg');
+const { Pool } = require('pg');
 
-const pool = new Pool ({
-    user: 'default_user',
+const pool = new Pool({
+    user: 'dusan',
     host: 'localhost',
-    database: 'default_database',
-    password: 'default_password',
+    database: 'products_db',
+    password: '23022001',
     port: 5432,
 });
 

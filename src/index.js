@@ -1,21 +1,27 @@
-const pool = require('../db-config');
 const express = require('express');
 const dotenv = require('dotenv');
-const bodyparser = require('body-parser');
-
-dotenv.config();
+const productRoutes = require('./controllers/productsController');
+const setTimestamp = require('./middleware/timestampMiddleware');
 
 const app = express();
 
-const port = process.env.PORT || 5432;
+app.use(express.json());
+app.use(setTimestamp);
 
+dotenv.config();
+
+const port = process.env.PORT || 3500;
 
 app.get('/', (req, res) => {
-  res.send('Hello, this is a simple GET request!');
+    res.send('Hello, this is a simple GET request!');
 });
 
+app.get('/products', productRoutes.getAllProducts);
+app.get('/products/:id', productRoutes.getProductById);
+app.post('/products', productRoutes.createProduct);
+app.put('/products/:id', productRoutes.updateProduct);
+app.delete('/products/:id', productRoutes.deleteProduct);
 
-
-app.listen(5432, () => {
+app.listen(3500, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
-  });
+});
