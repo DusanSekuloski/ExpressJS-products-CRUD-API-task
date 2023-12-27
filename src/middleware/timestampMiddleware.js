@@ -7,7 +7,7 @@ const setTimestamp = (req, res, next) => {
     if (req.method === 'POST') {
         req.body.created = now;
         req.body.updated = now;
-    } else if (req.method === 'PUT' || req.method === 'PATCH') {
+    } else if (req.method === 'PUT') {
         req.body.updated = now;
     }
 

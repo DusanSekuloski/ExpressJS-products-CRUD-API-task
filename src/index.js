@@ -13,7 +13,7 @@ dotenv.config();
 const port = process.env.PORT || 3500;
 
 app.get('/', (req, res) => {
-    res.send('Hello, this is a simple GET request!');
+    res.send('Products CRUD API task');
 });
 
 app.get('/products', productRoutes.getAllProducts);
