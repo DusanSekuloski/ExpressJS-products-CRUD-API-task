@@ -1,27 +1,15 @@
+require('dotenv').config();
 const express = require('express');
-const dotenv = require('dotenv');
-const productRoutes = require('./controllers/productsController');
-const setTimestamp = require('./middleware/timestampMiddleware');
-
-const app = express();
-
-app.use(express.json());
-app.use(setTimestamp);
-
-dotenv.config();
-
+const cors = require('cors');
 const port = process.env.PORT || 3500;
 
-app.get('/', (req, res) => {
-    res.send('Products CRUD API task');
-});
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-app.get('/products', productRoutes.getAllProducts);
-app.get('/products/:id', productRoutes.getProductById);
-app.post('/products', productRoutes.createProduct);
-app.put('/products/:id', productRoutes.updateProduct);
-app.delete('/products/:id', productRoutes.deleteProduct);
+app.use('/products', require('./routes/api/products'));
+app.use('/categories', require('./routes/api/categories'));
 
-app.listen(3500, () => {
+app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
 });
