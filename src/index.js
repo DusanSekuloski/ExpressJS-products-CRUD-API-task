@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use('/products', require('./routes/api/products'));
 app.use('/categories', require('./routes/api/categories'));
+app.use('/users', require('./routes/api/users'));
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
