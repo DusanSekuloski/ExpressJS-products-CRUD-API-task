@@ -1,5 +1,4 @@
 const express = require('express');
-const router = express.Router();
 
 const setTimestamp = (req, res, next) => {
     const now = new Date();

@@ -1,7 +1,7 @@
 const db = require('../../db-config');
 const bcrypt = require('bcrypt');
 
-const createNewUser = async (req, res) => {
+exports.registerUser = async (req, res) => {
     const { first_name, last_name, email, password, created_at } = req.body;
 
     if (!first_name || !last_name || !email || !password || !created_at) {
@@ -12,7 +12,7 @@ const createNewUser = async (req, res) => {
         const duplicate = await db.query('SELECT * FROM users WHERE email = $1', [email]);
 
         if (duplicate.rows.length > 0) {
-            return res.status(409).send('Error: that email already exists');
+            return res.status(409).json({message: 'Error: that email already exists'});
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -34,4 +34,3 @@ const createNewUser = async (req, res) => {
     }
 };
 
-module.exports = { createNewUser };

@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const registerController = require('../../controllers/registerController');
-const setTimestamp = require('../../middleware/timestampMiddleware');
+const authenticateToken = require('../../middleware/authenticateToken');
+const usersController = require('../../controllers/usersController');
 
-router.route('/register')
-.post(setTimestamp, registerController.createNewUser);
+router.route('/').get(usersController.getAllUsers);
 
-router.route('/login');
+router.route('/:id').get(usersController.getUserById).delete(usersController.deleteUser);
 
-router.route('/update');
+router.route('/update').put(authenticateToken, usersController.updateLoggedInUser);
 
 module.exports = router;
-
